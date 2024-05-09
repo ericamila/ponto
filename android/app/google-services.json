@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "262846933899",
+    "project_id": "registro-ponto-9f3d7",
+    "storage_bucket": "registro-ponto-9f3d7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262846933899:android:a43d1d172eb7424bfedd8e",
+        "android_client_info": {
+          "package_name": "com.example.ponto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4R8SlnS_9S5PjE0rb9knIpz5vRkKrBmM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262846933899:android:5533c99092c8a5defedd8e",
+        "android_client_info": {
+          "package_name": "com.example.ponto_eletronico"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4R8SlnS_9S5PjE0rb9knIpz5vRkKrBmM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
