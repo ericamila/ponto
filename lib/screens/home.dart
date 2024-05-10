@@ -5,17 +5,18 @@ import 'package:ponto_eletronico/screens/search.dart';
 
 import '../confirmation_dialog.dart';
 import '../confirmation_dialog_consultar.dart';
+import '../main.dart';
 
-class MyHomePage extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   final String title;
 
-  const MyHomePage({super.key, required this.title});
+  const HomeScreen({super.key, required this.title});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   DateTime registro = DateTime.now();
   String _feedback = '';
 
@@ -81,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
         };
 
         db
-            .collection("registro")
+            .collection(kToken)
             .doc(registro.idGeneration)
             .set(data)
             .then((value) => setState(() {
