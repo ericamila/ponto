@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ponto_eletronico/app_colors.dart';
+import 'package:ponto_eletronico/util/app_colors.dart';
 
 Future<dynamic> showConfirmationDialog(BuildContext context,
     {String title = "Atenção!",

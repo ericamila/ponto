@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../format_txt.dart';
+import '../util/format_txt.dart';
 import '../main.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -103,14 +103,14 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-void showSnackBar(
-    {required BuildContext context,
+void showSnackBar({
+    required BuildContext context,
     required String message,
     required bool sucess}) {
-  final snackBar = SnackBar(
-    content: Text(message),
-    backgroundColor: (sucess) ? Colors.teal : Colors.orangeAccent,
-    behavior: SnackBarBehavior.floating,
+    final snackBar = SnackBar(
+      content: Text(message),
+      backgroundColor: (sucess) ? Colors.teal : Colors.orangeAccent,
+      behavior: SnackBarBehavior.floating,
   );
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }

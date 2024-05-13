@@ -1,10 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:ponto_eletronico/screens/login.dart';
-import 'package:ponto_eletronico/theme.dart';
+import 'package:ponto_eletronico/util/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
-
 import 'screens/home.dart';
 
 // ignore: prefer_typing_uninitialized_variables
@@ -23,7 +22,6 @@ Future<bool> verifyToken() async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
   String? token = preferences.getString("accessToken");
   if (token != null) {
-    print('meu $token');
     kToken = token;
     return true;
   }
@@ -32,7 +30,6 @@ Future<bool> verifyToken() async {
 
 class PontoEletronico extends StatelessWidget {
   final bool isLogged;
-
   const PontoEletronico({super.key, required this.isLogged});
 
   @override
@@ -42,9 +39,7 @@ class PontoEletronico extends StatelessWidget {
       theme: theme,
       initialRoute: isLogged ? "home" : "login",
       routes: {
-        "home": (context) => const HomeScreen(
-              title: 'Registro de Ponto',
-            ),
+        "home": (context) => const HomeScreen(title: 'Registro de Ponto'),
         "login": (context) => LoginScreen(),
       },
     );

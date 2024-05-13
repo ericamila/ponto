@@ -15,9 +15,8 @@ Future<dynamic> showConfirmationDialogConsulta(
         title: Text(title),
         content: DropdownMenu<String>(
           controller: monthController,
-          enableFilter: true,
           requestFocusOnTap: true,
-          label: Text(meses[mesAnteror - 1]),
+          label: Text(selectedMonth),
           inputDecorationTheme: const InputDecorationTheme(
             filled: true,
             contentPadding: EdgeInsets.symmetric(vertical: 5.0),

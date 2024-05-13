@@ -38,4 +38,16 @@ FilledButton
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),
   ),
+  /*
+TextTheme
+ */
+  textTheme: const TextTheme(
+    displayLarge: TextStyle(
+      fontSize: 64,
+      fontWeight: FontWeight.bold,
+    ),
+    titleLarge: TextStyle(fontSize: 22, fontStyle: FontStyle.italic),
+    bodyMedium: TextStyle(fontSize: 18),
+    displaySmall: TextStyle(fontSize: 16),
+  ),
 );

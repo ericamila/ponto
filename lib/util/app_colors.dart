@@ -5,5 +5,6 @@ class AppColor {
   static Color branco = const Color(0xFFF3F2F1);
   static Color vermelho = Colors.red.shade900;
   static Color cinzaClaro = Colors.grey.shade200;
+  static Color cinzaMedio = Colors.grey.shade300;
   static Color cinzaEscuro = Colors.grey.shade700;
 }

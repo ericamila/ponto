@@ -2,14 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ponto_eletronico/extensions/date_time.dart';
 import 'package:ponto_eletronico/screens/search.dart';
-
-import '../confirmation_dialog.dart';
-import '../confirmation_dialog_consultar.dart';
+import '../components/confirmation_dialog.dart';
+import '../components/confirmation_dialog_consultar.dart';
 import '../main.dart';
 
 class HomeScreen extends StatefulWidget {
   final String title;
-
   const HomeScreen({super.key, required this.title});
 
   @override

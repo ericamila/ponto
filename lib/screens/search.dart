@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:ponto_eletronico/components/table.dart';
 import '../main.dart';
 import '../model/registro.dart';
-import '../month.dart';
+import '../util/month.dart';
 
 class Consulta extends StatefulWidget {
   final String month;
-
   const Consulta({super.key, required this.month});
 
   @override
@@ -37,7 +36,6 @@ class _ConsultaState extends State<Consulta> {
         ],
       ),
       body: (rows.length == 1) ? noData() : TableCustom.criaTabela(rows: rows),
-      // verificar se pecisa de SingleChildScrollView()
     );
   }
 
