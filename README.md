@@ -16,6 +16,7 @@
 - [x] Adicionar ação no actions do Consulta();
 - [x] Personalizar resultado;
 - [x] Refatorar;
+- [ ] Tratar exceções
 
 ## ✔️ Técnicas e tecnologias utilizadas
 
@@ -23,5 +24,5 @@
 - ``Dart 3.3.4``
 
 <p align="center">
-    <img src="https://skillicons.dev/icons?i=dart,flutter,firebase" />
+    <img src="https://skillicons.dev/icons?i=dart,flutter,firebase"  alt="stacks"/>
 </p>
