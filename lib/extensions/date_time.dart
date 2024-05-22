@@ -8,6 +8,7 @@ extension ExtensionDateTime on DateTime {
   }
 
   String get idGeneration {
-    return '$year$month$day$hour$minute$second';
+    //return '$year$month$day$hour$minute$second';
+    return DateTime.now().toString();
   }
 }
