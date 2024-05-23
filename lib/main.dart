@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'screens/home.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 // ignore: prefer_typing_uninitialized_variables
 late final kToken;
@@ -36,6 +37,15 @@ class PontoEletronico extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Ponto Eletrônico',
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', 'US'),
+        Locale('pt', 'BR')
+      ],
       theme: theme,
       initialRoute: isLogged ? "home" : "login",
       routes: {

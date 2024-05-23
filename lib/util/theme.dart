@@ -19,6 +19,17 @@ AppBar
 TextButton
  */
   textButtonTheme: TextButtonThemeData(
+    style: FilledButton.styleFrom(
+      backgroundColor: AppColor.azul,
+      foregroundColor: AppColor.branco,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    ),
+  ),
+
+  /*
+ElevatedButton
+ */
+  elevatedButtonTheme: ElevatedButtonThemeData(
     style: TextButton.styleFrom(
         backgroundColor: AppColor.azul,
         foregroundColor: AppColor.branco,

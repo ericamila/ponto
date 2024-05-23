@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ponto_eletronico/components/table.dart';
+import 'package:ponto_eletronico/screens/add.dart';
 import '../main.dart';
 import '../model/registro.dart';
 import '../util/month.dart';
 
 class Consulta extends StatefulWidget {
   final String month;
+
   const Consulta({super.key, required this.month});
 
   @override
@@ -27,15 +29,57 @@ class _ConsultaState extends State<Consulta> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Consulta ${widget.month}'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 18.0),
-            child: status(isFull),
-          )
-        ],
+          title: Text('Consulta ${widget.month}'),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 18.0),
+              child: status(isFull),
+            )
+          ],
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(45),
+            child: TableCustom.criaTabela(rows: [
+              (TableCustom.criarLinhaTable(listaDados: "Data, Hora, Registro"))
+            ]),
+          )),
+      body: Padding(
+        padding: const EdgeInsets.only(bottom: 70),
+        child: SingleChildScrollView(
+          child: (rows.isEmpty)
+              ? noData()
+              : TableCustom.criaTabela(rows: rows),
+        ),
       ),
-      body: (rows.length == 1) ? noData() : TableCustom.criaTabela(rows: rows),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: buildFloatingActionButton(context),
+    );
+  }
+
+  FloatingActionButton buildFloatingActionButton(BuildContext context) {
+    return FloatingActionButton.extended(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (contextNew) => FormRegister(
+              month: widget.month,
+            ),
+          ),
+        ).then((value) {
+          if (value != null) {
+            (value == true)
+                ? showSnackBarDefault(context)
+                : showSnackBarDefault(context,
+                    message: "Houve uma falha ao registar.");
+            setState(() {});
+          }
+        });
+      },
+      label: const Text(
+        'ADICIONAR',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      icon: const Icon(Icons.more_time),
     );
   }
 
@@ -68,7 +112,6 @@ class _ConsultaState extends State<Consulta> {
   }
 
   List<TableRow> _populaVazio() {
-    rows.add(TableCustom.criarLinhaTable(listaDados: "Data, Hora, Registro"));
     _populaRows();
     setState(() {});
     return rows;
@@ -81,12 +124,11 @@ class _ConsultaState extends State<Consulta> {
   }
 }
 
-Center noData({String msg = 'Registros não encontrados!'}) {
-  return Center(
+Widget noData({String msg = 'Registros não encontrados!'}) {
+  return Container(
+    margin: const EdgeInsets.only(top: 120),
+    alignment: Alignment.center,
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Icon(
           Icons.data_object_outlined,
@@ -98,4 +140,10 @@ Center noData({String msg = 'Registros não encontrados!'}) {
       ],
     ),
   );
+}
+
+void showSnackBarDefault(BuildContext context,
+    {String message = "Registro salvo com sucesso.", bool sucess = true}) {
+  final snackBar = SnackBar(content: Text(message));
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }

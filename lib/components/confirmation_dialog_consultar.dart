@@ -13,26 +13,30 @@ Future<dynamic> showConfirmationDialogConsulta(
     builder: (context) {
       return AlertDialog(
         title: Text(title),
-        content: DropdownMenu<String>(
-          controller: monthController,
-          requestFocusOnTap: true,
-          label: const Text('Mês'),
-          hintText: selectedMonth,
-          inputDecorationTheme: const InputDecorationTheme(
-            filled: true,
-            contentPadding: EdgeInsets.symmetric(vertical: 5.0),
-          ),
-          onSelected: (String? value) {
-            selectedMonth = value.toString();
-          },
-          dropdownMenuEntries: meses.map<DropdownMenuEntry<String>>(
-            (String mes) {
-              return DropdownMenuEntry<String>(
-                value: mes,
-                label: mes,
-              );
+        content: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 7),
+          child: DropdownMenu<String>(
+            width: MediaQuery.of(context).size.width * .62,
+            controller: monthController,
+            requestFocusOnTap: true,
+            label: const Text('Mês'),
+            hintText: selectedMonth,
+            inputDecorationTheme: const InputDecorationTheme(
+              filled: true,
+              contentPadding: EdgeInsets.symmetric(vertical: 5.0),
+            ),
+            onSelected: (String? value) {
+              selectedMonth = value.toString();
             },
-          ).toList(),
+            dropdownMenuEntries: meses.map<DropdownMenuEntry<String>>(
+              (String mes) {
+                return DropdownMenuEntry<String>(
+                  value: mes,
+                  label: mes,
+                );
+              },
+            ).toList(),
+          ),
         ),
         actions: [
           FilledButton(

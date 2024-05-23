@@ -36,13 +36,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   ? Text(_feedback, textAlign: TextAlign.center)
                   : Container(),
             ),
-            TextButton(
+            ElevatedButton(
               onPressed: _registrarPonto,
               child: const Text('Registrar'),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
-              child: TextButton(
+              child: ElevatedButton(
                 onPressed: _consultarPonto,
                 child: const Text('Consultar'),
               ),
