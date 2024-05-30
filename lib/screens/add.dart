@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ponto_eletronico/extensions/date_time.dart';
 import 'package:ponto_eletronico/util/app_colors.dart';
+
+import '../main.dart';
 
 class FormRegister extends StatefulWidget {
   final String month;
@@ -17,6 +20,8 @@ class _FormRegisterState extends State<FormRegister> {
   final TextEditingController _hourController = TextEditingController();
   bool _isEntrada = true;
   int monthSelected = DateTime.now().month;
+  String _feedback = '';
+  DateTime? _pickedDate;
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +70,12 @@ class _FormRegisterState extends State<FormRegister> {
                       borderSide: BorderSide.none,
                     ),
                   ),
-                  readOnly: true,
-                  onTap: () {
-
-                  },
+                  //readOnly: true,
+                  onTap: () {},
+                  keyboardType: TextInputType.datetime,
+                  inputFormatters: const [
+                    //TimeText(),
+                  ],
                 ),
               ),
               Row(
@@ -84,6 +91,12 @@ class _FormRegisterState extends State<FormRegister> {
                   ),
                 ],
               ),
+              Padding(
+                padding: EdgeInsets.only(bottom: (_feedback != '') ? 30 : 0),
+                child: (_feedback != '')
+                    ? Text(_feedback, textAlign: TextAlign.center)
+                    : Container(),
+              ),
             ],
           ),
         ),
@@ -96,10 +109,7 @@ class _FormRegisterState extends State<FormRegister> {
   FloatingActionButton buildFloatingActionButton(BuildContext context) {
     return FloatingActionButton.extended(
       onPressed: () {
-        debugPrint('data ${_dateController.text}\n'
-            'hora ${_hourController.text}\n'
-            'entrada $_isEntrada\n'
-            'mês $monthSelected');
+        _registrarPonto();
       },
       label: const Text(
         'SALVAR',
@@ -110,7 +120,7 @@ class _FormRegisterState extends State<FormRegister> {
   }
 
   Future<void> _selectDate() async {
-    DateTime? _pickedDate = await showDatePicker(
+    _pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2024),
@@ -121,9 +131,39 @@ class _FormRegisterState extends State<FormRegister> {
 
     if (_pickedDate != null) {
       setState(() {
-        _dateController.text = (_pickedDate.formatBrazilianDate.split(" ")[0]);
-        monthSelected = _pickedDate.month;
+        _dateController.text = (_pickedDate!.formatBrazilianDate.split(" ")[0]);
+        monthSelected = _pickedDate!.month;
       });
     }
+  }
+
+  _registrarPonto() async {
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    bool isEntrada = _isEntrada;
+
+    final data = <String, dynamic>{
+      "data": _dateController.text,
+      "hora": _hourController.text,
+      "mes": monthSelected,
+      "entrada": isEntrada,
+    };
+    db
+        .collection(kToken)
+        .doc(
+            '${_pickedDate.toString().split(" ")[0]} ${_hourController.text}:${DateTime.now().second.toStringAsFixed(6)}')
+        .set(data)
+        .then(
+          (value) => setState(() {
+            _feedback = '${isEntrada ? 'ENTRADA' : 'SAÍDA'} REGISTRADA:\n '
+                '${_dateController.text} - ${_hourController.text}';
+          }),
+        )
+        .onError(
+          (error, stackTrace) => _feedback = error.toString(),
+        );
+
+    _dateController.text = '';
+    _hourController.text = '';
+    _isEntrada = true;
   }
 }
