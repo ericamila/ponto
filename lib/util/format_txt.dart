@@ -28,7 +28,7 @@ class TimeText extends TextInputFormatter {
   String _formatTime(String input) {
     // Assuming input is in the format hh:mm
     final parts = input.split(':');
-    final hours = parts.length > 0 ? parts[0] : '';
+    final hours = parts.isNotEmpty ? parts[0] : '';
     final minutes = parts.length > 1 ? parts[1] : '';
 
     // Ensure leading zeroes

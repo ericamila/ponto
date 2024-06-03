@@ -4,6 +4,7 @@ import 'package:ponto_eletronico/components/table.dart';
 import 'package:ponto_eletronico/screens/add.dart';
 import '../main.dart';
 import '../model/registro.dart';
+import '../util/common.dart';
 import '../util/month.dart';
 
 class Consulta extends StatefulWidget {
@@ -45,9 +46,7 @@ class _ConsultaState extends State<Consulta> {
       body: Padding(
         padding: const EdgeInsets.only(bottom: 70),
         child: SingleChildScrollView(
-          child: (rows.isEmpty)
-              ? noData()
-              : TableCustom.criaTabela(rows: rows),
+          child: (rows.isEmpty) ? noData() : TableCustom.criaTabela(rows: rows),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -61,7 +60,7 @@ class _ConsultaState extends State<Consulta> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (contextNew) => FormRegister(
+            builder: (context) => FormRegister(
               month: widget.month,
             ),
           ),
@@ -70,8 +69,8 @@ class _ConsultaState extends State<Consulta> {
             (value == true)
                 ? showSnackBarDefault(context)
                 : showSnackBarDefault(context,
-                    message: "Houve uma falha ao registar.");
-            setState(() {});
+                message: "Houve uma falha ao registar.");
+            _refresh();
           }
         });
       },
@@ -87,6 +86,8 @@ class _ConsultaState extends State<Consulta> {
     FirebaseFirestore db = FirebaseFirestore.instance;
     const source = Source.serverAndCache; //para registros off-line
     int mes = Month.string(monthString: widget.month).month;
+
+    rows = [];
 
     db
         .collection(kToken)
@@ -122,28 +123,9 @@ class _ConsultaState extends State<Consulta> {
         ? const Icon(Icons.calendar_month_outlined)
         : const CircularProgressIndicator();
   }
-}
 
-Widget noData({String msg = 'Registros não encontrados!'}) {
-  return Container(
-    margin: const EdgeInsets.only(top: 120),
-    alignment: Alignment.center,
-    child: Column(
-      children: [
-        Icon(
-          Icons.data_object_outlined,
-          size: 96,
-          weight: 0.5,
-          color: Colors.grey[700],
-        ),
-        Text(msg),
-      ],
-    ),
-  );
-}
-
-void showSnackBarDefault(BuildContext context,
-    {String message = "Registro salvo com sucesso.", bool sucess = true}) {
-  final snackBar = SnackBar(content: Text(message));
-  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  Future<void> _refresh() async {
+    setState(() {});
+    _populaVazio();
+  }
 }
