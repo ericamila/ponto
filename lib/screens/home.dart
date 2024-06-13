@@ -8,6 +8,7 @@ import '../main.dart';
 
 class HomeScreen extends StatefulWidget {
   final String title;
+
   const HomeScreen({super.key, required this.title});
 
   @override
@@ -21,15 +22,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(title: Text(widget.title)),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
+          children: [
             Padding(
               padding: EdgeInsets.only(bottom: (_feedback != '') ? 30 : 0),
               child: (_feedback != '')
@@ -37,9 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   : Container(),
             ),
             ElevatedButton(
-              onPressed: _registrarPonto,
-              child: const Text('Registrar'),
-            ),
+                onPressed: _registrarPonto, child: const Text('Registrar')),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: ElevatedButton(
@@ -68,10 +65,6 @@ class _HomeScreenState extends State<HomeScreen> {
           isEntrada = !isEntrada;
         }
 
-        registro = (isEntrada) //considentando o Delay de 1 min ;)
-            ? DateTime.now().subtract(const Duration(minutes: 1))
-            : DateTime.now().add(const Duration(minutes: 1));
-
         final data = <String, dynamic>{
           "data": registro.formatBrazilianDate,
           "hora": registro.formatBrazilianTime,
@@ -88,9 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       '${isEntrada ? 'ENTRADA' : 'SAÍDA'} REGISTRADA:\n '
                       '${registro.formatBrazilianDate} - ${registro.formatBrazilianTime}';
                 }))
-            .onError(
-              (error, stackTrace) => _feedback = error.toString(),
-            );
+            .onError((error, stackTrace) => _feedback = error.toString());
       }
     });
   }
@@ -101,9 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => Consulta(
-              month: value,
-            ),
+            builder: (context) => Consulta(month: value),
           ),
         );
       }
