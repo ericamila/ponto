@@ -7,7 +7,7 @@ Future<dynamic> showConfirmationDialogConsulta(
 }) {
   final TextEditingController monthController = TextEditingController();
   int mesAnteror = DateTime.now().month - 1;
-  String selectedMonth = meses[mesAnteror - 1];
+  String selectedMonth = meses[mesAnteror]; //Mes atual
   return showDialog(
     context: context,
     builder: (context) {
@@ -18,6 +18,7 @@ Future<dynamic> showConfirmationDialogConsulta(
           child: DropdownMenu<String>(
             width: MediaQuery.of(context).size.width * .62,
             controller: monthController,
+            initialSelection: selectedMonth,
             requestFocusOnTap: true,
             label: const Text('Mês'),
             hintText: selectedMonth,

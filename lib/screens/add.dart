@@ -21,6 +21,7 @@ class _FormRegisterState extends State<FormRegister> {
   final TextEditingController _timeController = TextEditingController();
   bool _isEntrada = true;
   int monthSelected = DateTime.now().month;
+  int year = DateTime.now().year;
   DateTime? _pickedDate;
   late TimeOfDay _pickedTime = TimeOfDay.now();
 
@@ -177,6 +178,7 @@ class _FormRegisterState extends State<FormRegister> {
       "data": '*${_dateController.text}',
       "hora": _timeController.text,
       "mes": monthSelected,
+      "ano": year,
       "entrada": isEntrada,
     };
 

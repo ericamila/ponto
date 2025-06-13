@@ -86,12 +86,14 @@ class _ConsultaState extends State<Consulta> {
     FirebaseFirestore db = FirebaseFirestore.instance;
     const source = Source.serverAndCache; //para registros off-line
     int mes = Month.string(monthString: widget.month).month;
+    int ano = DateTime.now().year;
 
     rows = [];
 
     db
         .collection(kToken)
         .where("mes", isEqualTo: mes)
+        .where("ano", isEqualTo: ano)
         .get(const GetOptions(source: source))
         .then((event) {
       for (var doc in event.docs) {

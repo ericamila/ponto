@@ -1,4 +1,4 @@
-package com.example.ponto
+package dev.ericamila.ponto
 
 import io.flutter.embedding.android.FlutterActivity
 
